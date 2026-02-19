@@ -18,14 +18,13 @@ A lightweight, production-ready HRMS web application built with **React** (front
 
 ## Tech Stack
 
-| Layer     | Technology                    |
-|-----------|-------------------------------|
-| Frontend  | React 18, React Router v6     |
-| Styling   | Plain CSS (no UI library)     |
-| HTTP      | Axios                         |
-| Backend   | Django 4.2 + Django REST Framework |
-| Database  | MongoDB via pymongo           |
-| Fonts     | Syne (display) + DM Sans (body) |
+| Layer     | Technology                    
+|-----------|-------------------------------
+| Frontend  | React 18, React Router v6     
+| Styling   | Plain CSS (no UI library)     
+| HTTP      | Axios                         
+| Backend   | Django + Django REST Framework 
+| Database  | MongoDB           
 
 ---
 
@@ -38,10 +37,10 @@ hrms/
 │   ├── requirements.txt
 │   ├── .env.example
 │   ├── hrms_project/
-│   │   ├── settings.py       # Django settings + MongoDB config
-│   │   ├── urls.py           # Root URL routing
-│   │   ├── db.py             # MongoDB singleton connection + indexes
-│   │   ├── exception_handler.py  # Global DRF error handler
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── db.py
+│   │   ├── exception_handler.py
 │   │   └── wsgi.py
 │   └── apps/
 │       ├── employees/
@@ -56,16 +55,16 @@ hrms/
     ├── public/index.html
     └── src/
         ├── App.jsx
-        ├── index.css         # Design system (CSS variables + all styles)
+        ├── index.css 
         ├── services/
-        │   └── api.js        # Axios instance + all API calls
+        │   └── api.js 
         ├── hooks/
-        │   └── useAsync.js   # Reusable data fetching hooks
+        │   └── useAsync.js 
         ├── components/
         │   ├── Sidebar.jsx
         │   ├── Modal.jsx
-        │   ├── Toast.jsx           # Toast notification system
-        │   ├── UI.jsx              # LoadingState, EmptyState, ErrorState, Avatar, StatusBadge
+        │   ├── Toast.jsx
+        │   ├── UI.jsx 
         │   ├── AddEmployeeModal.jsx
         │   └── MarkAttendanceModal.jsx
         └── pages/
@@ -222,7 +221,7 @@ Created automatically on first connection:
 
 ## Production Deployment
 
-### Backend (e.g., Railway, Render, EC2)
+### Backend (Render)
 
 1. Set `DEBUG=False` in `.env`
 2. Set a strong `SECRET_KEY`
@@ -230,18 +229,8 @@ Created automatically on first connection:
 4. Set `MONGO_URI` to your production MongoDB Atlas URI
 5. Run with Gunicorn: `gunicorn hrms_project.wsgi:application`
 
-### Frontend (e.g., Vercel, Netlify)
+### Frontend (Vercel)
 
-1. Set `REACT_APP_API_URL=https://your-api-domain.com/api`
+1. Set `REACT_APP_API_URL=https://hrms-kblh.vercel.app`
 2. Run `npm run build`
 3. Deploy the `build/` folder
-
----
-
-## Design Decisions
-
-- **pymongo directly** (not djongo/mongoengine): More control, simpler, no ORM overhead for document-style data.
-- **No Django auth models**: Single-admin system per spec — avoids unnecessary complexity.
-- **CSS Variables design system**: No Tailwind/UI library — demonstrates raw CSS proficiency and full control.
-- **Centralized error handling**: Both the DRF exception handler (backend) and Axios interceptor (frontend) normalize errors so all components consume a consistent error format.
-- **Cascade delete**: Deleting an employee automatically removes all their attendance records to maintain data integrity.
